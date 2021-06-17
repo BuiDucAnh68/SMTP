@@ -66,12 +66,12 @@ namespace SMTP
             rTB_BoxSend.Clear();
             tcpClient = new TcpClient();
             string host = "smtp.gmail.com";
-            tcpClient.Connect(host, 465);//2 port để kết nối với GMAIL 465,587 và đây em dùng port 465 cho TCP Client để không đụng port của SMTP client
-            //Khởi động Ssl để có thể xác nhận cho Client thực hiện việc accept của Server
-            SslStream ssl = new SslStream(tcpClient.GetStream());
-            ssl.AuthenticateAsClient("smtp.gmail.com");
-            sr = new StreamReader(ssl);
-            sw = new StreamWriter(ssl);
+            tcpClient.Connect(host, 587);//2 port để kết nối với GMAIL 465,587 và đây em dùng port 587 cho TCP Client để chung port của SMTP client
+            //Nếu ở đây em sử dụng Port 465 nó phải xác thực thành công cho máy và rất khó cho máy khác accept thành công
+            //SslStream ssl = new SslStream(tcpClient.GetStream());
+            //ssl.AuthenticateAsClient("smtp.gmail.com");
+            sr = new StreamReader(tcpClient.GetStream());
+            sw = new StreamWriter(tcpClient.GetStream());
             //Lấy đuôi sau @ của tài khoản gửi và nhận để lấy domain của EHLO  
             int index = txt_from.Text.Trim().IndexOf('@');
             string domain = txt_from.Text.Trim().Substring(index + 1);
