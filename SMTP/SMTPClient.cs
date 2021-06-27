@@ -266,7 +266,5 @@ namespace SMTP
             ofd.ShowDialog();
             rTB_File.Text += ofd.FileName + "\n"; 
         }
-
-       
     }
 }
